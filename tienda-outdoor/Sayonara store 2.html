@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sayonara Store — Venta de Artículos Deportivos</title>
+  <meta name="description" content="Tienda online de artículos deportivos. Compra ropa, calzado y equipo de deporte al mejor precio en Sayonara Store." />
+  <style>
+    :root{
+      --blue:#2b4ed6;
+      --muted:#f5f5f7;
+      --text:#222;
+      --card:#ffffff;
+      --accent:#ff3b30;
+      --radius:12px;
+      --gap:18px;
+      --max-width:1200px;
+      --shadow: 0 6px 18px rgba(18,24,40,0.06);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#fff 0%, #fbfbfd 100%);color:var(--text);}
+
+    .promo{background:var(--blue);color:#fff;padding:8px 16px;text-align:center;font-weight:600;font-size:13px}
+
+    header{background:#fff;padding:18px 24px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:10}
+    .header-inner{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;gap:12px}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--blue)}
+    .logo svg{width:36px;height:36px}
+    .search{flex:1;display:flex;align-items:center}
+    .search input{width:100%;padding:12px 16px;border-radius:999px;border:1px solid #e6e6ea;background:#fafafa;transition:all .3s}
+    .search input:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 2px rgba(43,78,214,0.15)}
+    .icons{display:flex;gap:14px;align-items:center}
+    .icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0f0f2;cursor:pointer;transition:all .3s}
+    .icon:hover{background:var(--blue);color:#fff}
+
+    .container{max-width:var(--max-width);margin:28px auto;padding:0 20px;display:grid;grid-template-columns:260px 1fr;gap:30px}
+
+    .sidebar{background:transparent}
+    .filters{background:#fff;padding:18px;border-radius:12px;box-shadow:var(--shadow)}
+    .filters h4{margin:0 0 10px 0}
+    .filter-group{margin-bottom:12px}
+    .filter-group input[type=number]{width:100%;padding:8px;border-radius:8px;border:1px solid #ccc;margin-top:6px}
+
+    .catalog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap}
+    .brand-title{font-size:28px;font-weight:700}
+    .sort{font-size:14px;color:#666}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+    .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;transition:transform .3s, box-shadow .3s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(18,24,40,0.12)}
+
+    .media{height:220px;border-radius:10px;background:linear-gradient(180deg,#f3f4f8,#fff);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+    .media img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .4s ease}
+    .media:hover img{transform:scale(1.1)}
+
+    .badge{position:absolute;background:var(--accent);color:#fff;padding:6px 8px;border-radius:999px;font-size:12px;font-weight:700;top:12px;left:12px}
+
+    .card-row{display:flex;align-items:center;justify-content:space-between}
+    .title{font-weight:600;font-size:15px}
+    .price{font-weight:800}
+    .price .old{font-weight:500;text-decoration:line-through;color:#999;margin-left:8px;font-size:13px}
+    .rating{font-size:13px;color:#f6b93b}
+    .cta{margin-top:8px}
+    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:none;background:var(--blue);color:#fff;font-weight:700;cursor:pointer;transition:all .3s}
+    .btn:hover{background:#1f38a4}
+    .ghost{background:transparent;border:1px solid #eee;color:#333}
+    .ghost:hover{border-color:var(--blue);color:var(--blue)}
+
+    .muted{color:#667085;font-size:13px}
+
+    /* WhatsApp Floating Button */
+    .whatsapp-btn{
+      position:fixed;
+      bottom:24px;
+      right:24px;
+      background:#25d366;
+      color:#fff;
+      padding:14px 20px;
+      border-radius:999px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.2);
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      transition:transform .3s, box-shadow .3s;
+      text-decoration:none;
+    }
+    .whatsapp-btn:hover{
+      transform:scale(1.05);
+      box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    @media (max-width:900px){
+      .container{grid-template-columns:1fr}
+      .sidebar{order:2}
+    }
+  </style>
+</head>
+<body>
+  <div class="promo">3 y 6 MSI en TODA LA TIENDA, en compras superiores a $3,499</div>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M10 4h8v16h-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>SAYONARA <span style="color:#111;opacity:.6;font-weight:500">STORE</span></div>
+      </div>
+      <div class="search">
+        <input id="searchInput" placeholder="Buscar artículos, marcas o categorías" />
+      </div>
+      <div class="icons">
+        <div class="icon" title="Cuenta">👤</div>
+        <div class="icon" title="Favoritos">♥</div>
+        <div class="icon" title="Carrito">🛒</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <aside class="sidebar">
+      <div class="filters">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <strong>Filtros</strong>
+          <span class="muted" id="productCount">662 Productos</span>
+        </div>
+
+        <div class="filter-group">
+          <h4>Filtrar por precio ($100+)</h4>
+          <input type="number" id="minPrice" min="100" placeholder="Precio mínimo" />
+          <input type="number" id="maxPrice" placeholder="Precio máximo" style="margin-top:8px" />
+          <button class="btn" style="width:100%;margin-top:8px" onclick="applyFilters()">Aplicar</button>
+        </div>
+      </div>
+    </aside>
+
+    <section>
+      <div class="catalog-head">
+        <div>
+          <div class="brand-title">QUECHUA</div>
+          <div class="muted">Nuestras Marcas</div>
+        </div>
+        <div class="sort muted">Más relevante ▾</div>
+      </div>
+
+      <div class="grid" id="productGrid"></div>
+
+      <div style="margin-top:18px;display:flex;justify-content:center">
+        <button class="btn ghost" onclick="loadMore()">Cargar más productos</button>
+      </div>
+    </section>
+  </main>
+
+  <a href="https://wa.me/526642806045" target="_blank" class="whatsapp-btn">💬 ¿Tienes dudas?</a>
+
+  <script>
+    const products = [
+      {name:'Pantalón de senderismo para mujer NH100',brand:'Quechua',price:449,old:549,category:'Outdoor',rating:4.6,img:'https://images.unsplash.com/photo-1526406915892-3c4d5f4b4a45?q=80&w=800&auto=format&fit=crop'},
+      {name:'Casa de campaña - MH100 - 3 plazas',brand:'Quechua',price:1799,old:2199,category:'Camping',rating:4.4,img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop'},
+      {name:'Zapatillas Trail Run',brand:'Decathlon',price:2199,category:'Running',rating:4.8,img:'https://images.unsplash.com/photo-1517960413843-0aee8e2b8b7b?q=80&w=800&auto=format&fit=crop'},
+      {name:'Mochila Deportiva 20L',brand:'Sayonara',price:399,category:'Accesorios',rating:4.5,img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop'}
+    ];
+
+    const grid = document.getElementById('productGrid');
+
+    function renderProducts(items){
+      grid.innerHTML='';
+      items.forEach(p=>{
+        const card=document.createElement('article');
+        card.className='card';
+        card.innerHTML=`
+          <div class="media"><img src="${p.img}" alt="${p.name}"/></div>
+          <div class="card-row">
+            <div><div class="title">${p.name}</div><div class="muted">${p.brand} • ${p.category}</div></div>
+            <div style="text-align:right"><div class="rating">★ ${p.rating}</div></div>
+          </div>
+          <div class="card-row"><div class="price">$${p.price}.00 ${p.old?`<span class='old'>$${p.old}.00</span>`:''}</div></div>
+          <div class="cta"><button class="btn">Agregar al carrito</button></div>`;
+        grid.appendChild(card);
+      });
+      document.getElementById('productCount').innerText=`${items.length} Productos`;
+    }
+
+    function applyFilters(){
+      const min=parseFloat(document.getElementById('minPrice').value)||100;
+      const max=parseFloat(document.getElementById('maxPrice').value)||Infinity;
+      const filtered=products.filter(p=>p.price>=min && p.price<=max);
+      renderProducts(filtered);
+    }
+
+    function loadMore(){alert('Cargando más productos...');}
+
+    renderProducts(products);
+  </script>
+</body>
+</html>
